@@ -13,6 +13,9 @@ trait AzureJay extends play.api.Plugin {
   val pluginName = "azurejay"
 }
 
+/**
+ * Plugin implementation
+ */
 class AzureJayPlugin(app: play.api.Application) extends AzureJay {
 
   private lazy val instance : Unit = {

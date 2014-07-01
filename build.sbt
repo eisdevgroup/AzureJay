@@ -7,7 +7,6 @@ scalaVersion := "2.10.4"
 // Change this to another test framework if you prefer
 libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play" % "2.2.3" % "provided",
-  "com.typesafe.play.plugins" %% "play-plugins-util" % "2.2.3",
   "org.scalatest" %% "scalatest" % "2.1.6" % "test"
 )
 
