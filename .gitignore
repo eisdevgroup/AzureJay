@@ -8,4 +8,5 @@
 /sample/project/*-shim.sbt
 /sample/project/project/
 /sample/project/target/
-
+/sample/target/
+/sample/logs/

@@ -2,13 +2,10 @@ name := """sample"""
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+play.Project.playScalaSettings
 
-scalaVersion := "2.11.1"
+scalaVersion := "2.10.4"
 
 libraryDependencies ++= Seq(
-  jdbc,
-  anorm,
-  cache,
-  ws
+  "ru.eis" %% "azurejay" % "0.1"
 )
