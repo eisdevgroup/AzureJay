@@ -23,10 +23,15 @@ class AzureJayPlugin(app: play.api.Application) extends AzureJay {
       throw new RuntimeException("azurejay.service must be set in application.conf in order to use plugin"))
     val tableName : String = app.configuration.getString("azurejay.table").getOrElse(
       throw new RuntimeException("azurejay.table must be set in application.conf in order to use plugin"))
+    new AzureJayAdapter(serviceName, tableName)
   }
 
-  override lazy val enabled = {
+  override lazy val enabled : Boolean = {
     !app.configuration.getString("azurejay").filter(_ == "disabled").isDefined
+  }
+
+  override def onStart() : Unit = {
+    instance
   }
 
 }

@@ -10,7 +10,7 @@ import scala.concurrent.{Await, Future}
  * Date: 01.07.14
  * Time: 16:23
  */
-class AzureAdapter(serviceName: String, tableName: String) {
+class AzureJayAdapter(serviceName: String, tableName: String) {
 
 //  import scala.concurrent.ExecutionContext.Implicits.global
 
