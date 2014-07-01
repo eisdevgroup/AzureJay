@@ -1,8 +1,9 @@
 package ru.eis.azurejay
 
-import play.api.Logger
-import play.api.libs.json.JsValue
+import play.api.libs.json.{Json, JsObject, JsValue}
 import play.api.libs.ws._
+import scala.concurrent.duration._
+import scala.concurrent.{Await, Future}
 
 /**
  * User: esypachev
@@ -11,27 +12,35 @@ import play.api.libs.ws._
  */
 class AzureAdapter(serviceName: String, tableName: String) {
 
-  import scala.concurrent.ExecutionContext.Implicits.global
+//  import scala.concurrent.ExecutionContext.Implicits.global
 
   private val serviceUrl: String = s"https://$serviceName.azure-mobile.net/tables/$tableName"
   private val headers: Seq[(String,String)] = Seq(("Accept", "application/json"), ("Content-Type", "application/json"))
+  private val responseTimeout = 5 seconds
 
-  def create(message: String) : Unit = {
-    val request = WS.url(serviceUrl).withHeaders(headers:_*)
-    request.post(message).map {
-      response => Logger.info(response.status.toString)
-    }
+  def create(message: Message) : Unit = {
+    val request = Await.result(WS.url(serviceUrl).withHeaders(headers:_*).post(message.toJson), responseTimeout)
+    request.status
   }
 
-  def create(message: JsValue) : Unit = {
-    val request = WS.url(serviceUrl).withHeaders(headers:_*)
-    request.post(message).map {
-      response => Logger.info(response.status.toString)
-    }
+}
+
+case class Message(data: Map[String, String], deviceUid: String, deviceType: DeviceType.Type) {
+  private val jsDeviceUid = "channel"
+  private val jsDeviceType = "deviseType"
+
+  def toJson: JsValue = {
+    val dataMap = Map(
+      jsDeviceUid  -> deviceUid,
+      jsDeviceType -> deviceType.toString
+    ) ++ data
+    Json.toJson(dataMap)
   }
+}
 
-
-
+object DeviceType extends Enumeration {
+  type Type = Value
+  val Android, iOS, WindowsPhone = Value
 }
 
 
