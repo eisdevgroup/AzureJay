@@ -19,9 +19,9 @@ trait AzureJay extends play.api.Plugin {
 class AzureJayPlugin(app: play.api.Application) extends AzureJay {
 
   private lazy val instance : Unit = {
-    val serviceName : String = app.configuration.getString(s"$pluginName.service").getOrElse(
+    val serviceName : String = app.configuration.getString("azurejay.service").getOrElse(
       throw new RuntimeException("azurejay.service must be set in application.conf in order to use plugin"))
-    val tableName : String = app.configuration.getString(s"$pluginName.table").getOrElse(
+    val tableName : String = app.configuration.getString("azurejay.table").getOrElse(
       throw new RuntimeException("azurejay.table must be set in application.conf in order to use plugin"))
     new AzureJayAdapter(serviceName, tableName)
   }
