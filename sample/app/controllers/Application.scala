@@ -15,6 +15,7 @@ object Application extends Controller {
   def sendNotification = Action {
     val notifier = use[AzureJay].sender
     Logger.warn(notifier.toString)
+    notifier.query()
     Redirect(controllers.routes.Application.index())
   }
 

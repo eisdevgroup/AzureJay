@@ -12,16 +12,20 @@ import scala.concurrent.{Await, Future}
  */
 class AzureJayAdapter(serviceName: String, tableName: String) {
 
-//  import scala.concurrent.ExecutionContext.Implicits.global
-
   private val serviceUrl: String = s"https://$serviceName.azure-mobile.net/tables/$tableName"
   private val headers: Seq[(String,String)] = Seq(("Accept", "application/json"), ("Content-Type", "application/json"))
-  private val responseTimeout = 5 seconds
 
-  def create(message: Message) : Unit = {
-    val request = Await.result(WS.url(serviceUrl).withHeaders(headers:_*).post(message.toJson), responseTimeout)
-    request.status
-  }
+  def query() : Future[Response] =
+    WS.url(serviceUrl).withHeaders(headers:_*).get()
+
+  def create(message: Message) : Future[Response] =
+    WS.url(serviceUrl).withHeaders(headers:_*).post(message.toJson)
+
+  def update(id: Long, message: Message) : Future[Response] =
+    WS.url(s"${serviceUrl}/${id}").withHeaders(headers:_*).put(message.toJson)
+
+  def delete(id: Long) : Future[Response] =
+    WS.url(s"${serviceUrl}/${id}").withHeaders(headers:_*).delete()
 
 }
 
