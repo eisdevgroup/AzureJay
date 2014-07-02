@@ -6,9 +6,13 @@ version := "0.1"
 
 scalaVersion := "2.10.4"
 
+lazy val buildVersion =  "2.1.0"
+lazy val playVersion =  "2.2.3"
+
 // Change this to another test framework if you prefer
 libraryDependencies ++= Seq(
-  "com.typesafe.play" %% "play" % "2.2.3" % "provided",
+  "com.typesafe.play" %% "play" % playVersion % "provided",
+  "com.typesafe" %% "play-plugins-util" % buildVersion,
   "org.scalatest" %% "scalatest" % "2.1.6" % "test"
 )
 

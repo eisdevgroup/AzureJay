@@ -1,5 +1,7 @@
 package ru.eis.azurejay
 
+import ru.eis.azurejay
+
 /**
  * User: esypachev
  * Date: 01.07.14
@@ -11,6 +13,8 @@ package ru.eis.azurejay
  */
 trait AzureJay extends play.api.Plugin {
   val pluginName = "azurejay"
+
+  def sender : AzureJayAdapter
 }
 
 /**
@@ -18,10 +22,10 @@ trait AzureJay extends play.api.Plugin {
  */
 class AzureJayPlugin(app: play.api.Application) extends AzureJay {
 
-  private lazy val instance : Unit = {
-    val serviceName : String = app.configuration.getString("azurejay.service").getOrElse(
+  private lazy val instance : AzureJayAdapter = {
+    val serviceName : String = app.configuration.getString("azure.service").getOrElse(
       throw new RuntimeException("azurejay.service must be set in application.conf in order to use plugin"))
-    val tableName : String = app.configuration.getString("azurejay.table").getOrElse(
+    val tableName : String = app.configuration.getString("azure.table").getOrElse(
       throw new RuntimeException("azurejay.table must be set in application.conf in order to use plugin"))
     new AzureJayAdapter(serviceName, tableName)
   }
@@ -33,5 +37,7 @@ class AzureJayPlugin(app: play.api.Application) extends AzureJay {
   override def onStart() : Unit = {
     instance
   }
+
+  def sender = instance
 
 }
