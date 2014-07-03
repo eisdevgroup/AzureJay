@@ -1,6 +1,13 @@
-@(message: String)
+@(message: String)(implicit flash: play.api.mvc.Flash, lang: play.api.i18n.Lang)
 
 @main("Welcome to Play") {
+
+    @flash.get("success").map { message =>
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert"> &times; </button>
+            @Messages(message)
+        </div>
+    }
 
     <a href="@controllers.routes.Application.sendNotification()">
         Click to send notification

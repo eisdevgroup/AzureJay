@@ -21,10 +21,10 @@ class AzureJayAdapter(serviceName: String, tableName: String) {
   def create(message: Message) : Future[Response] =
     WS.url(serviceUrl).withHeaders(headers:_*).post(message.toJson)
 
-  def update(id: Long, message: Message) : Future[Response] =
+  def update(id: String, message: Message) : Future[Response] =
     WS.url(s"${serviceUrl}/${id}").withHeaders(headers:_*).put(message.toJson)
 
-  def delete(id: Long) : Future[Response] =
+  def delete(id: String) : Future[Response] =
     WS.url(s"${serviceUrl}/${id}").withHeaders(headers:_*).delete()
 
 }
