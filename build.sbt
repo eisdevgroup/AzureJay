@@ -20,6 +20,14 @@ scalacOptions += "-deprecation"
 
 javacOptions ++= Seq("-source", "1.6", "-target", "1.6", "-Xlint:unchecked", "-encoding", "UTF-8")
 
-// Uncomment to use Akka
-//libraryDependencies += "com.typesafe.akka" % "akka-actor_2.11" % "2.3.3"
+publishTo := {
+  val artifactory = "http://artifactory.eis.ru/artifactory/"
+  if (version.value.trim.endsWith("SNAPSHOT"))
+    Some("Artifactory Realm" at artifactory + "libs-snapshot-local/")
+  else
+    Some("Artifactory Realm" at artifactory + "libs-release-local/")
+}
+
+credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
+
 
