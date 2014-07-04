@@ -33,7 +33,7 @@ import ru.eis.azurejay._
 // get plugin instance
 val notifier = use[AzureJay].sender
 // create message
-val message = Message(Map("hello" -> "world"), "6b53093cfcfd83094634d632a592eeb8374cc38f9721778c7103b772819f8071", DeviceType.Android)
+val message = Message(Map("hello" -> "world"), "deviseuid", DeviceType.Android)
 // get azure service content
 notifier.query()
 // create new row in azure service
