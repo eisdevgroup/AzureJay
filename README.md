@@ -22,7 +22,6 @@ To install it:
 
 * configure plugin in application config file ```conf/application.conf```
 
-    # AzureJay config
     azure.service=testservice
     azure.table=TodoItems
 
