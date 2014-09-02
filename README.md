@@ -14,7 +14,7 @@ To install it:
 
 * add dependency to your dependency list in ```build.sbt``` or ```project/Build.scala```
 
-    "ru.eis" %% "azurejay" % "0.1"
+    "ru.eis" %% "azurejay" % azureJayVersion
 
 * add initialization to your plugin config ```conf/play.plugins```
 
@@ -24,6 +24,13 @@ To install it:
 
     azure.service=testservice
     azure.table=TodoItems
+
+## Compatibility
+
+| Plugin version | Play version | Scala version |
+|:--------------:|:------------:|:-------------:|
+|0.1             |2.2.3         |2.10.4         |
+|0.1.1           |2.3.x         |2.10.4, 2.11.1 | 
 
 ## Usage from Scala
 
@@ -53,8 +60,16 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 ## Limitations
 
-* plugin currently support only Play 2.2.3
-* plugin currently support only Scala 2.10
 * plugin currently support only one table in MS Azure mobile service
 
+## Change Log
 
+### v0.1.1
+
+fixed #1 - Scala 2.11 and Play 2.3.* support
+fixed #4 - Initialization exception text
+
+### v0.1
+
+Support for Play 2.2.3
+Support for _not-authorized_ tables in MS Azure Mobile Service
