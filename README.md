@@ -66,10 +66,10 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 ### v0.1.1
 
-fixed #1 - Scala 2.11 and Play 2.3.* support
-fixed #4 - Initialization exception text
+* fixed #1 - Scala 2.11 and Play 2.3.* support
+* fixed #4 - Initialization exception text
 
 ### v0.1
 
-Support for Play 2.2.3
-Support for _not-authorized_ tables in MS Azure Mobile Service
+* Support for Play 2.2.3
+* Support for _not-authorized_ tables in MS Azure Mobile Service
