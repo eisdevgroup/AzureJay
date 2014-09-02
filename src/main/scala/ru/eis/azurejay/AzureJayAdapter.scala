@@ -1,9 +1,10 @@
 package ru.eis.azurejay
 
-import play.api.libs.json.{Json, JsObject, JsValue}
+import play.api.Application
+import play.api.libs.json.{Json, JsValue}
+import play.mvc.Http.Response
 import play.api.libs.ws._
-import scala.concurrent.duration._
-import scala.concurrent.{Await, Future}
+import scala.concurrent.Future
 
 /**
  * User: esypachev
@@ -12,19 +13,21 @@ import scala.concurrent.{Await, Future}
  */
 class AzureJayAdapter(serviceName: String, tableName: String) {
 
+  import play.api.Play.current
+
   private val serviceUrl: String = s"https://$serviceName.azure-mobile.net/tables/$tableName"
   private val headers: Seq[(String,String)] = Seq(("Accept", "application/json"), ("Content-Type", "application/json"))
 
-  def query() : Future[Response] =
+  def query() : Future[WSResponse] =
     WS.url(serviceUrl).withHeaders(headers:_*).get()
 
-  def create(message: Message) : Future[Response] =
+  def create(message: Message) : Future[WSResponse] =
     WS.url(serviceUrl).withHeaders(headers:_*).post(message.toJson)
 
-  def update(id: String, message: Message) : Future[Response] =
+  def update(id: String, message: Message) : Future[WSResponse] =
     WS.url(s"${serviceUrl}/${id}").withHeaders(headers:_*).put(message.toJson)
 
-  def delete(id: String) : Future[Response] =
+  def delete(id: String) : Future[WSResponse] =
     WS.url(s"${serviceUrl}/${id}").withHeaders(headers:_*).delete()
 
 }
